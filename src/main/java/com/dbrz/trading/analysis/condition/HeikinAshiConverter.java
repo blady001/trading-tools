@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ class HeikinAshiConverter {
         }
 
         candlesticksHA.removeLast();
-        return candlesticksHA;
+        return new ArrayList<>(candlesticksHA);
     }
 
     private Candlestick createHACandlestick(Candlestick current, Candlestick previousHA) {
