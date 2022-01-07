@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 class BinanceAdapter implements Exchange {
 
-    private BinanceApiRestClient binanceApiRestClient;
+    private final BinanceApiRestClient binanceApiRestClient;
+
+    private static final EnumMap<Timeframe, CandlestickInterval> TIMEFRAME_TO_CANDLESTICK;
+
+    static {
+        TIMEFRAME_TO_CANDLESTICK = new EnumMap<>(Timeframe.class);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.ONE_MINUTE, CandlestickInterval.ONE_MINUTE);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.FIVE_MINUTES, CandlestickInterval.FIVE_MINUTES);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.HALF_HOUR, CandlestickInterval.HALF_HOURLY);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.HOUR, CandlestickInterval.HOURLY);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.FOUR_HOURS, CandlestickInterval.FOUR_HOURLY);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.DAY, CandlestickInterval.DAILY);
+        TIMEFRAME_TO_CANDLESTICK.put(Timeframe.WEEK, CandlestickInterval.WEEKLY);
+    }
 
     @Override
     public List<Candlestick> getCandlesticks(String symbol, Timeframe timeframe, Integer limit) {
@@ -37,7 +51,7 @@ class BinanceAdapter implements Exchange {
     }
 
     private CandlestickInterval getCandlestickInterval(Timeframe timeframe) {
-        return CandlestickInterval.valueOf(timeframe.getSymbol());
+        return TIMEFRAME_TO_CANDLESTICK.get(timeframe);
     }
 
     private Candlestick convertCandlestick(com.binance.api.client.domain.market.Candlestick candlestick) {
