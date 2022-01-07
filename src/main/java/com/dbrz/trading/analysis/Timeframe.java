@@ -1,4 +1,4 @@
-package com.dbrz.trading.model;
+package com.dbrz.trading.analysis;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

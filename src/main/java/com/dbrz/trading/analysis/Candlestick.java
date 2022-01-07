@@ -1,4 +1,4 @@
-package com.dbrz.trading.model;
+package com.dbrz.trading.analysis;
 
 import java.math.BigDecimal;
 import java.time.Instant;

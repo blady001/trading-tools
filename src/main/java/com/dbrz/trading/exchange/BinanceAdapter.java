@@ -2,9 +2,8 @@ package com.dbrz.trading.exchange;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
-import com.dbrz.trading.model.Candlestick;
-import com.dbrz.trading.model.Exchange;
-import com.dbrz.trading.model.Timeframe;
+import com.dbrz.trading.analysis.Candlestick;
+import com.dbrz.trading.analysis.Timeframe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
