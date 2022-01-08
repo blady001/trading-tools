@@ -1,6 +1,7 @@
-package com.dbrz.trading.analysis.condition;
+package com.dbrz.trading.analysis.condition.heikinashi;
 
 import com.dbrz.trading.analysis.Candlestick;
+import com.dbrz.trading.analysis.condition.TradingCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

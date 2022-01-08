@@ -29,7 +29,7 @@ public class BinanceAdapterTest {
     private BinanceAdapter binanceAdapter;
 
     @Test
-    public void shouldGetCandlesticksWithinSpecificTime() {
+    void shouldGetCandlesticksWithinSpecificTime() {
         // given
         var givenBinanceCandlestick = givenBinanceCandlestick();
         when(binanceApiRestClient.getCandlestickBars(any(), any(), any(), any(), any())).thenReturn(Collections.singletonList(givenBinanceCandlestick));
@@ -50,7 +50,7 @@ public class BinanceAdapterTest {
     }
 
     @Test
-    public void shouldGetCandlesticksWithLimit() {
+    void shouldGetCandlesticksWithLimit() {
         // given
         var givenBinanceCandlestick = givenBinanceCandlestick();
         when(binanceApiRestClient.getCandlestickBars(any(), any(), any(), any(), any())).thenReturn(Collections.singletonList(givenBinanceCandlestick));
