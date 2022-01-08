@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 class HeikinAshiConverter {
 
-    public List<Candlestick> convertToHACandlesticks(List<Candlestick> candlesticks) {
+    List<Candlestick> convertToHACandlesticks(List<Candlestick> candlesticks) {
         LinkedList<Candlestick> candlesticksHA = new LinkedList<>();
 
         for (int i = candlesticks.size() - 1; i >= 0; i--) {
