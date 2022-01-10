@@ -1,4 +1,4 @@
-package com.dbrz.trading.analysis.condition.heikinashi;
+package com.dbrz.trading.analysis.indicator;
 
 import com.dbrz.trading.analysis.Candlestick;
 import com.dbrz.trading.analysis.CandlestickHelper;
@@ -12,14 +12,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HeikinAshiConverterTest {
+public class HeikinAshiTest {
 
-    private HeikinAshiConverter converter;
     private CandlestickHelper candlestickHelper;
 
     @BeforeEach
     void init() {
-        converter = new HeikinAshiConverter();
         candlestickHelper = new CandlestickHelper();
     }
 
@@ -30,7 +28,7 @@ public class HeikinAshiConverterTest {
         var givenExpectedCandlesticks = Collections.singletonList(givenHaCandlesticks().get(4));
 
         // when
-        var actualHaCandlesticks = converter.convertToHACandlesticks(givenCandlesticks);
+        var actualHaCandlesticks = HeikinAshi.fromSeries(givenCandlesticks);
 
         // then
         assertThat(actualHaCandlesticks).isEqualTo(givenExpectedCandlesticks);
@@ -44,7 +42,7 @@ public class HeikinAshiConverterTest {
         var givenExpectedCandlesticks = givenHaCandlesticks();
 
         // when
-        var actualHaCandlesticks = converter.convertToHACandlesticks(givenCandlesticks);
+        var actualHaCandlesticks = HeikinAshi.fromSeries(givenCandlesticks);
 
         // then
         assertThat(actualHaCandlesticks).isEqualTo(givenExpectedCandlesticks);
