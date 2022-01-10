@@ -2,8 +2,6 @@ package com.dbrz.trading.exchange;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
-import com.dbrz.trading.analysis.Candlestick;
-import com.dbrz.trading.analysis.Timeframe;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @ConfigurationProperties(prefix = "exchange.binance")
 @Data
-public class BinanceProperties {
+class BinanceProperties {
 
     @NotBlank
     private String apiKey;

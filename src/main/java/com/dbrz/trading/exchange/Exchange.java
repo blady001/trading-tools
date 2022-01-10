@@ -1,8 +1,5 @@
 package com.dbrz.trading.exchange;
 
-import com.dbrz.trading.analysis.Candlestick;
-import com.dbrz.trading.analysis.Timeframe;
-
 import java.time.Instant;
 import java.util.List;
 
