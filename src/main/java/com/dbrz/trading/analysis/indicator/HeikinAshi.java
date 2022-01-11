@@ -4,14 +4,21 @@ import com.dbrz.trading.analysis.Candlestick;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class HeikinAshi {
 
-    public static List<Candlestick> fromSeries(List<Candlestick> series) {
-        LinkedList<Candlestick> candlesticksHA = new LinkedList<>();
+    static class Candle extends Candlestick {
+        public Candle(BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close, Instant openTime, Instant closeTime) {
+            super(open, high, low, close, openTime, closeTime);
+        }
+    }
+
+    public static List<Candle> fromSeries(List<Candlestick> series) {
+        LinkedList<Candle> candlesticksHA = new LinkedList<>();
 
         for (int i = series.size() - 1; i >= 0; i--) {
             Candlestick ordinaryCandlestick = series.get(i);
@@ -26,11 +33,11 @@ public class HeikinAshi {
         return new ArrayList<>(candlesticksHA);
     }
 
-    private static Candlestick createHACandlestick(Candlestick current, Candlestick previousHA) {
-        BigDecimal closeHA = current.open().add(current.high()).add(current.low()).add(current.close()).divide(new BigDecimal("4"), 2, RoundingMode.HALF_UP);
-        BigDecimal openHA = previousHA.open().add(previousHA.close()).divide(new BigDecimal("2"), 2, RoundingMode.HALF_UP);
-        BigDecimal highHA = current.high().max(openHA).max(closeHA);
-        BigDecimal lowHA = current.low().min(openHA).min(closeHA);
-        return new Candlestick(openHA, highHA, lowHA, closeHA, current.openTime(), current.closeTime());
+    private static Candle createHACandlestick(Candlestick current, Candlestick previousHA) {
+        BigDecimal closeHA = current.getOpen().add(current.getHigh()).add(current.getLow()).add(current.getClose()).divide(new BigDecimal("4"), 2, RoundingMode.HALF_UP);
+        BigDecimal openHA = previousHA.getOpen().add(previousHA.getClose()).divide(new BigDecimal("2"), 2, RoundingMode.HALF_UP);
+        BigDecimal highHA = current.getHigh().max(openHA).max(closeHA);
+        BigDecimal lowHA = current.getLow().min(openHA).min(closeHA);
+        return new Candle(openHA, highHA, lowHA, closeHA, current.getOpenTime(), current.getCloseTime());
     }
 }
