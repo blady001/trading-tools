@@ -15,6 +15,14 @@ public class HeikinAshi {
         public Candle(BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close, Instant openTime, Instant closeTime) {
             super(open, high, low, close, openTime, closeTime);
         }
+
+        public boolean isBullish() {
+            return close.compareTo(open) > 0 && open.equals(low);
+        }
+
+        public boolean isBearish() {
+            return open.compareTo(close) > 0 && open.equals(high);
+        }
     }
 
     public static List<Candle> fromSeries(List<Candlestick> series) {

@@ -11,6 +11,9 @@ import java.util.List;
 
 public class CandlestickHelper {
 
+    public static final String CSV_5_CANDLESTICKS = "csv/candlesticks_1d_27_09_21_-_01_10_21.csv";
+    public static final String CSV_100_CANDLESTICKS = "csv/candlesticks_1d_100_to_02_10_21.csv";
+
     private static final String CSV_PATH_TEMPLATE = "src/test/resources/%s";
 
     public List<Candlestick> loadFromCsv(String filename) throws IOException, CsvException {
