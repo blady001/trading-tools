@@ -11,7 +11,7 @@ import java.util.List;
 
 public class HeikinAshi {
 
-    static class Candle extends Candlestick {
+    public static class Candle extends Candlestick {
         public Candle(BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close, Instant openTime, Instant closeTime) {
             super(open, high, low, close, openTime, closeTime);
         }

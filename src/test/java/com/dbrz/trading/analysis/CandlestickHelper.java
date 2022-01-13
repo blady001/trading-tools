@@ -12,7 +12,8 @@ import java.util.List;
 public class CandlestickHelper {
 
     public static final String CSV_5_CANDLESTICKS = "csv/candlesticks_1d_27_09_21_-_01_10_21.csv";
-    public static final String CSV_100_CANDLESTICKS = "csv/candlesticks_1d_100_to_02_10_21.csv";
+    public static final String CSV_100_CANDLESTICKS = "csv/candlesticks_1d_25_06_21_to_02_10_21.csv";
+    public static final String CSV_1K_CANDLESTICKS = "csv/candlesticks_1d_07_01_2019_-_02_10_21.csv";
 
     private static final String CSV_PATH_TEMPLATE = "src/test/resources/%s";
 

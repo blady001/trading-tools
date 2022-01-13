@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TradingCondition {
 
-    boolean isSatisfied(List<Candlestick> data);
+    boolean isSatisfied(List<Candlestick> series);
 }
