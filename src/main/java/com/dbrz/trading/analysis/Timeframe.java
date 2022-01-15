@@ -3,6 +3,8 @@ package com.dbrz.trading.analysis;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.stream.Stream;
+
 @RequiredArgsConstructor
 @Getter
 public enum Timeframe {
@@ -15,4 +17,11 @@ public enum Timeframe {
     WEEK("1w");
 
     private final String symbol;
+
+    public static Timeframe from(String value) {
+        return Stream.of(values())
+                .filter(t -> t.symbol.equals(value))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }
