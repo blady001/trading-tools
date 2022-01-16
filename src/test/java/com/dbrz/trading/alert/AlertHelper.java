@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestComponent;
 
 import java.time.ZoneOffset;
+import java.util.List;
 
 @TestComponent
-class AlertHelper {
+public class AlertHelper {
 
     @Autowired
     private AlertRepository repository;
@@ -23,5 +24,21 @@ class AlertHelper {
                 .isActive(true)
                 .build();
         return repository.saveAndFlush(givenAlert);
+    }
+
+    AlertDto givenAlertDto(Long id) {
+        return new AlertDto(
+                id,
+                "BTCUSDT",
+                "binance",
+                ZoneOffset.of("+01:00"),
+                Timeframe.DAY,
+                "heikinAshiEntryCondition",
+                1,
+                true);
+    }
+
+    List<Alert> getAllSavedAlerts() {
+        return repository.findAll();
     }
 }

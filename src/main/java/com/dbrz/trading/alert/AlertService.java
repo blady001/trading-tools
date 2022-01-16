@@ -12,7 +12,13 @@ class AlertService {
     private final AlertRepository alertRepository;
     private final AlertMapper alertMapper;
 
-    public List<AlertDto> getAlerts() {
-        return alertRepository.findAll().stream().map(alertMapper::alertToAlertDto).toList();
+    List<AlertDto> getAlerts() {
+        return alertMapper.alertsToAlertDtos(alertRepository.findAll());
+    }
+
+    AlertDto createAlert(AlertDto alertDto) {
+        var alert = alertMapper.alertDtoToAlert(alertDto);
+        alertRepository.save(alert);
+        return alertMapper.alertToAlertDto(alert);
     }
 }
