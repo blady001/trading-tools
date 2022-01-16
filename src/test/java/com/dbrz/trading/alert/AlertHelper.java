@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.TestComponent;
 import java.time.ZoneOffset;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @TestComponent
 public class AlertHelper {
 
@@ -40,5 +42,9 @@ public class AlertHelper {
 
     List<Alert> getAllSavedAlerts() {
         return repository.findAll();
+    }
+
+    void thenAlertDoesNotExist(Long id) {
+        assertThat(repository.findById(id)).isEmpty();
     }
 }

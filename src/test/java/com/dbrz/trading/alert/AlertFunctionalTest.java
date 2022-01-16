@@ -9,8 +9,7 @@ import org.springframework.http.MediaType;
 import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class AlertFunctionalTest extends TestBase {
@@ -61,6 +60,19 @@ class AlertFunctionalTest extends TestBase {
         // then
         var actualAlerts = alertHelper.getAllSavedAlerts();
         assertThat(actualAlerts).isEmpty();
+    }
+
+    @Test
+    public void shouldDeleteAlert() throws Exception {
+        // given
+        var givenAlert = alertHelper.givenAlertEntity();
+
+        // when
+        mockMvc.perform(delete("/alerts/" + givenAlert.getId()))
+                .andExpect(status().isOk());
+
+        // then
+        alertHelper.thenAlertDoesNotExist(givenAlert.getId());
     }
 
     private String givenJson(AlertDto alertDto) {

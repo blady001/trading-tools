@@ -21,4 +21,8 @@ class AlertService {
         alertRepository.save(alert);
         return alertMapper.alertToAlertDto(alert);
     }
+
+    void deleteAlert(Long id) {
+        alertRepository.deleteById(id);
+    }
 }
