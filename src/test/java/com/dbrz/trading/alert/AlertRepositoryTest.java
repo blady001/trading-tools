@@ -1,39 +1,31 @@
 package com.dbrz.trading.alert;
 
-import com.dbrz.trading.analysis.Timeframe;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.time.OffsetTime;
-import java.time.ZoneOffset;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Import(AlertHelper.class)
 public class AlertRepositoryTest {
 
     @Autowired
     private AlertRepository alertRepository;
 
+    @Autowired
+    private AlertHelper alertHelper;
+
     @Test
     public void shouldSaveAndFind() {
         // given
-        var givenAlert = Alert.builder()
-                .exchange("binance")
-                .exchangeTimeOffset(OffsetTime.of(0, 0, 0, 0, ZoneOffset.UTC))
-                .symbol("BTCUSDT")
-                .trigger("heikinAshiEntryCondition")
-                .notificationMethod(1)
-                .timeframe(Timeframe.DAY)
-                .isActive(true)
-                .build();
+        var givenAlert = alertHelper.givenAlertEntity();
 
         // when
-        alertRepository.saveAndFlush(givenAlert);
+        var actualAlerts = alertRepository.findAll();
 
         // then
-        var actualAlerts = alertRepository.findAll();
         assertThat(actualAlerts).hasSize(1);
         thenAlertsEqual(actualAlerts.get(0), givenAlert);
     }
