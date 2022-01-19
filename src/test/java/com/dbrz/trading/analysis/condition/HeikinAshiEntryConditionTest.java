@@ -40,12 +40,12 @@ public class HeikinAshiEntryConditionTest {
 
     private void verifySignals(List<Instant> signals) {
         var expectedDates = Set.of(
-                Instant.ofEpochMilli(1624924800000L),
-                Instant.ofEpochMilli(1626998400000L),
-                Instant.ofEpochMilli(1628294400000L),
-                Instant.ofEpochMilli(1629504000000L),
-                Instant.ofEpochMilli(1631750400000L),
-                Instant.ofEpochMilli(1633132800000L)
+                Instant.ofEpochMilli(1624838400000L),
+                Instant.ofEpochMilli(1626912000000L),
+                Instant.ofEpochMilli(1628208000000L),
+                Instant.ofEpochMilli(1629417600000L),
+                Instant.ofEpochMilli(1631664000000L),
+                Instant.ofEpochMilli(1633046400000L)
         );
 
         var datetimeThreshold = OffsetDateTime.of(2021, 6, 28, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();

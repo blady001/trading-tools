@@ -20,16 +20,16 @@ class HeikinAshiEntryCondition implements TradingCondition {
     //  * EMA 10 + 30 - both rising
 
     @Override
-    public boolean isSatisfied(@Size(min = 7) List<Candlestick> series) {
+    public boolean isSatisfied(@Size(min = 6) List<Candlestick> series) {
         var haCandles = HeikinAshi.fromSeries(series);
         return wasInDowntrend(haCandles) && lastCandleIsBullish(haCandles);
     }
 
     private boolean lastCandleIsBullish(List<HeikinAshi.Candle> series) {
-        return series.get(1).isBullish();
+        return series.get(0).isBullish();
     }
 
     private boolean wasInDowntrend(List<HeikinAshi.Candle> series) {
-        return series.subList(2, 7).stream().filter(HeikinAshi.Candle::isBullish).toList().isEmpty();
+        return series.subList(1, 6).stream().filter(HeikinAshi.Candle::isBullish).toList().isEmpty();
     }
 }
