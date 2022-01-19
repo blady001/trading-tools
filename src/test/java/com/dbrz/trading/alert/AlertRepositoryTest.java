@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Import(AlertHelper.class)
-public class AlertRepositoryTest {
+class AlertRepositoryTest {
 
     @Autowired
     private AlertRepository alertRepository;
@@ -18,7 +18,7 @@ public class AlertRepositoryTest {
     private AlertHelper alertHelper;
 
     @Test
-    public void shouldSaveAndFind() {
+    void shouldSaveAndFind() {
         // given
         var givenAlert = alertHelper.givenAlertEntity();
 

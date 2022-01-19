@@ -1,4 +1,4 @@
-package com.dbrz.trading.exchange;
+package com.dbrz.trading.exchange.binance;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

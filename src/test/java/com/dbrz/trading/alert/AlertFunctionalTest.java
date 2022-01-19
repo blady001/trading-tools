@@ -19,7 +19,7 @@ class AlertFunctionalTest extends TestBase {
     private AlertMapper alertMapper;
 
     @Test
-    public void shouldReturnAlerts() throws Exception {
+    void shouldReturnAlerts() throws Exception {
         var givenAlertEntity = alertHelper.givenAlertEntity();
         var givenExpectedContent = String.format("[%s]", givenJson(alertMapper.alertToAlertDto(givenAlertEntity)));
         mockMvc.perform(get("/alerts"))
@@ -28,7 +28,7 @@ class AlertFunctionalTest extends TestBase {
     }
 
     @Test
-    public void shouldCreateAlert() throws Exception {
+    void shouldCreateAlert() throws Exception {
         // given
         var givenDto = alertHelper.givenAlertDto(null);
 
@@ -45,7 +45,7 @@ class AlertFunctionalTest extends TestBase {
     }
 
     @Test
-    public void shouldNotCreateAlertWithInvalidPayload() throws Exception {
+    void shouldNotCreateAlertWithInvalidPayload() throws Exception {
         // given
         var givenDto = new AlertDto(null, "", null, Timeframe.HOUR, null, null, false);
 
@@ -61,7 +61,7 @@ class AlertFunctionalTest extends TestBase {
     }
 
     @Test
-    public void shouldDeleteAlert() throws Exception {
+    void shouldDeleteAlert() throws Exception {
         // given
         var givenAlert = alertHelper.givenAlertEntity();
 

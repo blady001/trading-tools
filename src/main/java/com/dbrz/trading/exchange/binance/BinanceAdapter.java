@@ -1,9 +1,12 @@
-package com.dbrz.trading.exchange;
+package com.dbrz.trading.exchange.binance;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
+import com.dbrz.trading.exchange.Candlestick;
+import com.dbrz.trading.exchange.ExchangeAdapter;
+import com.dbrz.trading.exchange.Timeframe;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -11,9 +14,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service("binanceAdapter")
 @RequiredArgsConstructor
-class BinanceAdapter implements Exchange {
+class BinanceAdapter implements ExchangeAdapter {
 
     private final BinanceApiRestClient binanceApiRestClient;
 

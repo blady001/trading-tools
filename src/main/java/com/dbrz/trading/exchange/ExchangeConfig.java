@@ -1,20 +1,22 @@
 package com.dbrz.trading.exchange;
 
-import com.binance.api.client.BinanceApiClientFactory;
-import com.binance.api.client.BinanceApiRestClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
+@RequiredArgsConstructor
 class ExchangeConfig {
 
-    @Bean
-    BinanceApiRestClient binanceApiRestClient() {
-        return binanceApiClientFactory().newRestClient();
-    }
+    private final ExchangeAdapter binanceAdapter;
 
     @Bean
-    BinanceApiClientFactory binanceApiClientFactory() {
-        return BinanceApiClientFactory.newInstance();
+    Map<Exchange, ExchangeAdapter> exchangeAdapterMap() {
+        Map<Exchange, ExchangeAdapter> map = new HashMap<>();
+        map.put(Exchange.BINANCE, binanceAdapter);
+        return map;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HeikinAshiTest {
+class HeikinAshiTest {
 
     private CandlestickHelper candlestickHelper;
 

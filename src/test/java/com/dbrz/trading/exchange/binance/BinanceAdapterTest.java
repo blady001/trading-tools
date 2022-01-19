@@ -1,7 +1,9 @@
-package com.dbrz.trading.exchange;
+package com.dbrz.trading.exchange.binance;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
+import com.dbrz.trading.exchange.Candlestick;
+import com.dbrz.trading.exchange.Timeframe;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class BinanceAdapterTest {
+class BinanceAdapterTest {
 
     @Mock
     private BinanceApiRestClient binanceApiRestClient;
