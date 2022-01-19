@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
-import java.time.ZoneOffset;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -49,7 +47,7 @@ class AlertFunctionalTest extends TestBase {
     @Test
     public void shouldNotCreateAlertWithInvalidPayload() throws Exception {
         // given
-        var givenDto = new AlertDto(null, "", null, ZoneOffset.UTC, Timeframe.HOUR, null, null, false);
+        var givenDto = new AlertDto(null, "", null, Timeframe.HOUR, null, null, false);
 
         // when
         mockMvc.perform(post("/alerts")
@@ -81,7 +79,6 @@ class AlertFunctionalTest extends TestBase {
                             "id": %d,
                             "symbol": "%s",
                             "exchange": "%s",
-                            "exchangeTimeOffset": "%s",
                             "timeframe": "%s",
                             "trigger": "%s",
                             "notificationMethod": %d,
@@ -91,7 +88,6 @@ class AlertFunctionalTest extends TestBase {
                 alertDto.id(),
                 alertDto.symbol(),
                 alertDto.exchange(),
-                alertDto.exchangeTimeOffset().getId(),
                 alertDto.timeframe().toString(),
                 alertDto.trigger(),
                 alertDto.notificationMethod(),

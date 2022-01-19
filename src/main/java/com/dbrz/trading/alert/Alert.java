@@ -4,7 +4,6 @@ import com.dbrz.trading.analysis.Timeframe;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.ZoneOffset;
 
 @Entity
 @NoArgsConstructor
@@ -23,9 +22,6 @@ public class Alert {
 
     @Column(nullable = false)
     private String exchange;
-
-    @Column(nullable = false)
-    private ZoneOffset exchangeTimeOffset;
 
     @Column(nullable = false)
     private Timeframe timeframe;

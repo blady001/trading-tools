@@ -4,7 +4,6 @@ import com.dbrz.trading.analysis.Timeframe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestComponent;
 
-import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,6 @@ public class AlertHelper {
     Alert givenAlertEntity() {
         var givenAlert = Alert.builder()
                 .exchange("binance")
-                .exchangeTimeOffset(ZoneOffset.of("+01:00"))
                 .symbol("BTCUSDT")
                 .trigger("heikinAshiEntryCondition")
                 .notificationMethod(1)
@@ -33,7 +31,6 @@ public class AlertHelper {
                 id,
                 "BTCUSDT",
                 "binance",
-                ZoneOffset.of("+01:00"),
                 Timeframe.DAY,
                 "heikinAshiEntryCondition",
                 1,

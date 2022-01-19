@@ -32,7 +32,6 @@ public class AlertRepositoryTest {
 
     private void thenAlertsEqual(Alert actual, Alert expected) {
         assertThat(actual.getId()).isEqualTo(1L);
-        assertThat(actual.getExchangeTimeOffset()).isEqualTo(expected.getExchangeTimeOffset());
         assertThat(actual.getExchange()).isEqualTo(expected.getExchange());
         assertThat(actual.getSymbol()).isEqualTo(expected.getSymbol());
         assertThat(actual.getTrigger()).isEqualTo(expected.getTrigger());
