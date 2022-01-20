@@ -6,6 +6,7 @@ import com.dbrz.trading.exchange.Candlestick;
 import com.dbrz.trading.exchange.ExchangeAdapter;
 import com.dbrz.trading.exchange.Timeframe;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service("binanceAdapter")
 @RequiredArgsConstructor
+@Slf4j
 class BinanceAdapter implements ExchangeAdapter {
 
     private final BinanceApiRestClient binanceApiRestClient;
@@ -45,6 +47,17 @@ class BinanceAdapter implements ExchangeAdapter {
         var binanceCandlesticks = binanceApiRestClient.getCandlestickBars(
                 symbol, getCandlestickInterval(timeframe), null, startTime.toEpochMilli(), endTime.toEpochMilli());
         return convertCandlesticks(binanceCandlesticks);
+    }
+
+    @Override
+    public boolean isExchangeOpened() {
+        try {
+            binanceApiRestClient.ping();
+            return true;
+        } catch (Throwable t) {
+            log.error("BinanceApiRestClient - error while pinging: ", t);
+            return false;
+        }
     }
 
     private List<Candlestick> convertCandlesticks(List<com.binance.api.client.domain.market.Candlestick> binanceCandlesticks) {

@@ -2,6 +2,7 @@ package com.dbrz.trading.exchange.binance;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
+import com.binance.api.client.exception.BinanceApiException;
 import com.dbrz.trading.exchange.Candlestick;
 import com.dbrz.trading.exchange.Timeframe;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,30 @@ class BinanceAdapterTest {
                 givenSymbol, CandlestickInterval.WEEKLY, givenLimit, null, null);
         assertThat(result).hasSize(1);
         assertCandlesticksEqual(givenBinanceCandlestick, result.get(0));
+    }
+
+    @Test
+    void shouldBeOpened() {
+        // given
+        doNothing().when(binanceApiRestClient).ping();
+
+        // when
+        var actual = binanceAdapter.isExchangeOpened();
+
+        // then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void shouldNotBeOpened() {
+        // given
+        doThrow(new BinanceApiException("test")).when(binanceApiRestClient).ping();
+
+        // when
+        var actual = binanceAdapter.isExchangeOpened();
+
+        // then
+        assertThat(actual).isFalse();
     }
 
     private void assertCandlesticksEqual(com.binance.api.client.domain.market.Candlestick expected, Candlestick actual) {

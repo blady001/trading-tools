@@ -8,4 +8,6 @@ public interface ExchangeAdapter {
     List<Candlestick> getCandlesticks(String symbol, Timeframe timeframe, Integer limit);
 
     List<Candlestick> getCandlesticks(String symbol, Timeframe timeframe, Instant startTime, Instant endTime);
+
+    boolean isExchangeOpened();
 }
