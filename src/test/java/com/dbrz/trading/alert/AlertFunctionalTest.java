@@ -20,7 +20,7 @@ class AlertFunctionalTest extends TestBase {
 
     @Test
     void shouldReturnAlerts() throws Exception {
-        var givenAlertEntity = alertHelper.givenAlertEntity();
+        var givenAlertEntity = alertHelper.getAlert();
         var givenExpectedContent = String.format("[%s]", givenJson(alertMapper.alertToAlertDto(givenAlertEntity)));
         mockMvc.perform(get("/alerts"))
                 .andExpect(status().isOk())
@@ -63,7 +63,7 @@ class AlertFunctionalTest extends TestBase {
     @Test
     void shouldDeleteAlert() throws Exception {
         // given
-        var givenAlert = alertHelper.givenAlertEntity();
+        var givenAlert = alertHelper.getAlert();
 
         // when
         mockMvc.perform(delete("/alerts/" + givenAlert.getId()))

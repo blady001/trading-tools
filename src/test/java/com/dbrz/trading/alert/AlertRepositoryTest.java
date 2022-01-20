@@ -20,7 +20,7 @@ class AlertRepositoryTest {
     @Test
     void shouldSaveAndFind() {
         // given
-        var givenAlert = alertHelper.givenAlertEntity();
+        var givenAlert = alertHelper.getAlert();
 
         // when
         var actualAlerts = alertRepository.findAll();
@@ -30,8 +30,21 @@ class AlertRepositoryTest {
         thenAlertsEqual(actualAlerts.get(0), givenAlert);
     }
 
+    @Test
+    void shouldReturnOnlyActiveAlerts() {
+        // given
+        var givenActiveAlert = alertHelper.withIsActive(true).getAlert();
+        var givenInactiveAlert = alertHelper.withIsActive(false).getAlert();
+
+        // when
+        var actualAlerts = alertRepository.findByIsActiveTrue();
+
+        // then
+        assertThat(actualAlerts).hasSize(1).contains(givenActiveAlert);
+    }
+
     private void thenAlertsEqual(Alert actual, Alert expected) {
-        assertThat(actual.getId()).isEqualTo(1L);
+        assertThat(actual.getId()).isEqualTo(expected.getId());
         assertThat(actual.getExchange()).isEqualTo(expected.getExchange());
         assertThat(actual.getSymbol()).isEqualTo(expected.getSymbol());
         assertThat(actual.getTrigger()).isEqualTo(expected.getTrigger());

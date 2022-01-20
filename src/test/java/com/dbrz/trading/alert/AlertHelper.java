@@ -14,14 +14,28 @@ public class AlertHelper {
     @Autowired
     private AlertRepository repository;
 
-    Alert givenAlertEntity() {
+    private final String defaultExchange = "BINANCE";
+    private final String defaultSymbol = "BTCUSDT";
+    private final String defaultTrigger = "heikinAshiEntryCondition";
+    private final int defaultNotificationMethod = 1;
+    private final Timeframe defaultTimeframe = Timeframe.DAY;
+    private final boolean defaultIsActive = true;
+
+    private String givenExchange = defaultExchange;
+    private String givenSymbol = defaultSymbol;
+    private String givenTrigger = defaultTrigger;
+    private int givenNotificationMethod = defaultNotificationMethod;
+    private Timeframe givenTimeframe = defaultTimeframe;
+    private boolean givenIsActive = defaultIsActive;
+
+    Alert getAlert() {
         var givenAlert = Alert.builder()
-                .exchange("binance")
-                .symbol("BTCUSDT")
-                .trigger("heikinAshiEntryCondition")
-                .notificationMethod(1)
-                .timeframe(Timeframe.DAY)
-                .isActive(true)
+                .exchange(givenExchange)
+                .symbol(givenSymbol)
+                .trigger(givenTrigger)
+                .notificationMethod(givenNotificationMethod)
+                .timeframe(givenTimeframe)
+                .isActive(givenIsActive)
                 .build();
         return repository.saveAndFlush(givenAlert);
     }
@@ -29,12 +43,12 @@ public class AlertHelper {
     AlertDto givenAlertDto(Long id) {
         return new AlertDto(
                 id,
-                "BTCUSDT",
-                "binance",
-                Timeframe.DAY,
-                "heikinAshiEntryCondition",
-                1,
-                true);
+                givenSymbol,
+                givenExchange,
+                givenTimeframe,
+                givenTrigger,
+                givenNotificationMethod,
+                givenIsActive);
     }
 
     List<Alert> getAllSavedAlerts() {
@@ -43,5 +57,44 @@ public class AlertHelper {
 
     void thenAlertDoesNotExist(Long id) {
         assertThat(repository.findById(id)).isEmpty();
+    }
+
+    public void reset() {
+        givenExchange = defaultExchange;
+        givenTimeframe = defaultTimeframe;
+        givenIsActive = defaultIsActive;
+        givenSymbol = defaultSymbol;
+        givenNotificationMethod = defaultNotificationMethod;
+        givenTrigger = defaultTrigger;
+    }
+
+    public AlertHelper withExchange(String value) {
+        givenExchange = value;
+        return this;
+    }
+
+    public AlertHelper withSymbol(String value) {
+        givenSymbol = value;
+        return this;
+    }
+
+    public AlertHelper withTrigger(String value) {
+        givenTrigger = value;
+        return this;
+    }
+
+    public AlertHelper withNotificationMethod(int value) {
+        givenNotificationMethod = value;
+        return this;
+    }
+
+    public AlertHelper withIsActive(boolean value) {
+        givenIsActive = value;
+        return this;
+    }
+
+    public AlertHelper withTimeframe(Timeframe value) {
+        givenTimeframe = value;
+        return this;
     }
 }

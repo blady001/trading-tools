@@ -1,6 +1,7 @@
 package com.dbrz.trading;
 
 import com.dbrz.trading.alert.AlertHelper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,10 +23,18 @@ public abstract class TestBase {
     protected MockMvc mockMvc;
 
     @Autowired
+    private AlertHelper alertHelper;
+
+    @Autowired
     private List<JpaRepository<?, ?>> jpaRepositories;
 
     @BeforeEach
     void clearDatabase() {
         jpaRepositories.forEach(JpaRepository::deleteAllInBatch);
+    }
+
+    @AfterEach
+    void resetAlertHelper() {
+        alertHelper.reset();
     }
 }
