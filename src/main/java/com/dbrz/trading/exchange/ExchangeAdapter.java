@@ -1,6 +1,8 @@
 package com.dbrz.trading.exchange;
 
 import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 public interface ExchangeAdapter {
@@ -9,5 +11,13 @@ public interface ExchangeAdapter {
 
     List<Candlestick> getCandlesticks(String symbol, Timeframe timeframe, Instant startTime, Instant endTime);
 
-    boolean isExchangeOpened();
+    Exchange getType();
+
+    boolean isTradingOpened();
+
+    LocalTime getOpenTime();
+
+    LocalTime getCloseTime();
+
+    ZoneId getExchangeZoneId();
 }

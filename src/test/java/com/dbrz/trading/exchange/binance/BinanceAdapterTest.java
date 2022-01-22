@@ -76,7 +76,7 @@ class BinanceAdapterTest {
         doNothing().when(binanceApiRestClient).ping();
 
         // when
-        var actual = binanceAdapter.isExchangeOpened();
+        var actual = binanceAdapter.isTradingOpened();
 
         // then
         assertThat(actual).isTrue();
@@ -88,7 +88,7 @@ class BinanceAdapterTest {
         doThrow(new BinanceApiException("test")).when(binanceApiRestClient).ping();
 
         // when
-        var actual = binanceAdapter.isExchangeOpened();
+        var actual = binanceAdapter.isTradingOpened();
 
         // then
         assertThat(actual).isFalse();

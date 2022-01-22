@@ -3,6 +3,7 @@ package com.dbrz.trading.exchange.binance;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.dbrz.trading.exchange.Candlestick;
+import com.dbrz.trading.exchange.Exchange;
 import com.dbrz.trading.exchange.ExchangeAdapter;
 import com.dbrz.trading.exchange.Timeframe;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +53,12 @@ class BinanceAdapter implements ExchangeAdapter {
     }
 
     @Override
-    public boolean isExchangeOpened() {
+    public Exchange getType() {
+        return Exchange.BINANCE;
+    }
+
+    @Override
+    public boolean isTradingOpened() {
         try {
             binanceApiRestClient.ping();
             return true;
@@ -58,6 +66,21 @@ class BinanceAdapter implements ExchangeAdapter {
             log.error("BinanceApiRestClient - error while pinging: ", t);
             return false;
         }
+    }
+
+    @Override
+    public LocalTime getOpenTime() {
+        return LocalTime.of(0, 0);
+    }
+
+    @Override
+    public LocalTime getCloseTime() {
+        return LocalTime.of(0, 0);
+    }
+
+    @Override
+    public ZoneId getExchangeZoneId() {
+        return ZoneId.of("UTC");
     }
 
     private List<Candlestick> convertCandlesticks(List<com.binance.api.client.domain.market.Candlestick> binanceCandlesticks) {
