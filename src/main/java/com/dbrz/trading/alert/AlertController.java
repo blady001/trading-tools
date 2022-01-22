@@ -13,21 +13,21 @@ import java.util.List;
 @RequiredArgsConstructor
 class AlertController {
 
-    private final AlertService alertService;
+    private final AlertManagementService alertManagementService;
 
     @GetMapping
     List<AlertDto> getAlerts() {
-        return alertService.getAlerts();
+        return alertManagementService.getAlerts();
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     AlertDto createAlert(@NotNull @Valid @RequestBody AlertDto alertDto) {
-        return alertService.createAlert(alertDto);
+        return alertManagementService.createAlert(alertDto);
     }
 
     @DeleteMapping("/{id}")
     void deleteAlert(@PathVariable Long id) {
-        alertService.deleteAlert(id);
+        alertManagementService.deleteAlert(id);
     }
 }

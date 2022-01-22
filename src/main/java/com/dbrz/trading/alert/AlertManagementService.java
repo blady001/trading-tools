@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class AlertService {
+class AlertManagementService {
 
     private final AlertRepository alertRepository;
     private final AlertMapper alertMapper;

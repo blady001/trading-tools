@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class AlertFunctionalTest extends TestBase {
+class AlertManagementFunctionalTest extends TestBase {
 
     @Autowired
     private AlertHelper alertHelper;
