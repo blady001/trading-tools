@@ -1,6 +1,8 @@
 package com.dbrz.trading.exchange;
 
 
-public record TickEvent(ExchangeAdapter exchangeAdapter, Timeframe timeframe) {
+import java.time.Instant;
+
+public record TickEvent(ExchangeAdapter exchangeAdapter, Timeframe timeframe, Instant createdAt) {
 
 }

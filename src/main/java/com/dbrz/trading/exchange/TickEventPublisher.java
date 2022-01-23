@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
@@ -18,35 +17,25 @@ class TickEventPublisher {
     private final List<ExchangeAdapter> exchangeAdapters;
     private final Clock clock;
 
-    // TODO: Start with testing
     void process() {
         var currentTime = ZonedDateTime.now(clock).truncatedTo(ChronoUnit.MINUTES);
         exchangeAdapters.forEach(exchangeAdapter -> {
             if (exchangeAdapter.isTradingOpened())
-                generateEvent(exchangeAdapter, currentTime);
+                generateEvents(exchangeAdapter, currentTime);
         });
     }
 
-    private void generateEvent(ExchangeAdapter exchangeAdapter, ZonedDateTime currentTime) {
-        determineTickTimeframe(exchangeAdapter, currentTime)
-                .map(timeframe -> new TickEvent(exchangeAdapter, timeframe))
-                .ifPresent(applicationEventPublisher::publishEvent);
+    private void generateEvents(ExchangeAdapter exchangeAdapter, ZonedDateTime currentTime) {
+        Stream.of(Timeframe.values())
+                .filter(timeframe -> shouldGenerateTickEventFor(timeframe, currentTime, exchangeAdapter))
+                .map(timeframe -> new TickEvent(exchangeAdapter, timeframe, currentTime.toInstant()))
+                .forEach(applicationEventPublisher::publishEvent);
     }
 
-    private Optional<Timeframe> determineTickTimeframe(ExchangeAdapter exchangeAdapter, ZonedDateTime currentTime) {
-        return getTimeframesDescending()
-                .filter(timeframe -> isTimeframeApplicable(timeframe, currentTime, exchangeAdapter))
-                .findFirst();
-    }
-
-    private Stream<Timeframe> getTimeframesDescending() {
-        return Stream.of(Timeframe.values())
-                .sorted(new TimeframeComparator().reversed());
-    }
-
-    private boolean isTimeframeApplicable(Timeframe timeframe, ZonedDateTime currentTime, ExchangeAdapter exchangeAdapter) {
+    private boolean shouldGenerateTickEventFor(Timeframe timeframe, ZonedDateTime currentTime, ExchangeAdapter exchangeAdapter) {
         var exchangeLocalTime = currentTime.withZoneSameInstant(exchangeAdapter.getExchangeZoneId()).toLocalTime();
         return switch (timeframe) {
+            case ONE_MINUTE -> true;
             case WEEK -> false;
             case DAY -> exchangeLocalTime.equals(exchangeAdapter.getCloseTime());
             default -> hasTimeframeElapsed(exchangeAdapter.getOpenTime(), exchangeLocalTime, timeframe);
