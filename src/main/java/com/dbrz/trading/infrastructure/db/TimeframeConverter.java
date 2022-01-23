@@ -1,6 +1,6 @@
 package com.dbrz.trading.infrastructure.db;
 
-import com.dbrz.trading.analysis.Timeframe;
+import com.dbrz.trading.exchange.Timeframe;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

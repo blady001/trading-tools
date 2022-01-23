@@ -1,6 +1,6 @@
 package com.dbrz.trading.alert;
 
-import com.dbrz.trading.analysis.Timeframe;
+import com.dbrz.trading.exchange.Timeframe;
 import lombok.*;
 
 import javax.persistence.*;

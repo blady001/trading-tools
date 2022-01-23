@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.Duration;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Getter
@@ -18,4 +19,11 @@ public enum Timeframe {
 
     private final String symbol;
     private final Duration duration;
+
+    public static Timeframe from(String value) {
+        return Stream.of(values())
+                .filter(t -> t.symbol.equals(value))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }
