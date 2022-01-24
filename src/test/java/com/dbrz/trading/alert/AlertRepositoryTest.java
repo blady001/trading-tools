@@ -1,5 +1,7 @@
 package com.dbrz.trading.alert;
 
+import com.dbrz.trading.exchange.Exchange;
+import com.dbrz.trading.exchange.Timeframe;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -40,7 +42,32 @@ class AlertRepositoryTest {
         var actualAlerts = alertRepository.findByIsActiveTrue();
 
         // then
-        assertThat(actualAlerts).hasSize(1).contains(givenActiveAlert);
+        assertThat(actualAlerts).hasSize(1)
+                .doesNotContain(givenInactiveAlert)
+                .contains(givenActiveAlert);
+    }
+
+    @Test
+    void shouldReturnActiveAlertsForGivenExchangeAndTimeframe() {
+        // given
+        var givenExchange = Exchange.BINANCE;
+        var givenTimeframe = Timeframe.FOUR_HOURS;
+        var givenAlert1 = alertHelper.withExchange(givenExchange)
+                .withTimeframe(givenTimeframe)
+                .getAlert();
+        var givenAlert2 = alertHelper.getAlert();
+        var givenAlert3 = alertHelper.withIsActive(false).getAlert();
+        var givenAlert4 = alertHelper.withIsActive(true)
+                .withTimeframe(Timeframe.ONE_MINUTE)
+                .getAlert();
+
+        // when
+        var actualAlerts = alertRepository.findByExchangeAndTimeframeAndIsActiveTrue(givenExchange, givenTimeframe);
+
+        // then
+        assertThat(actualAlerts).hasSize(2)
+                .doesNotContain(givenAlert3, givenAlert4)
+                .contains(givenAlert1, givenAlert2);
     }
 
     private void thenAlertsEqual(Alert actual, Alert expected) {

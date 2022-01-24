@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestComponent
 public class AlertHelper {
 
-    @Autowired
     private AlertRepository repository;
 
     private final Exchange defaultExchange = Exchange.BINANCE;
@@ -28,6 +27,10 @@ public class AlertHelper {
     private int givenNotificationMethod = defaultNotificationMethod;
     private Timeframe givenTimeframe = defaultTimeframe;
     private boolean givenIsActive = defaultIsActive;
+
+    public AlertHelper(AlertRepository repository) {
+        this.repository = repository;
+    }
 
     Alert getAlert() {
         var givenAlert = Alert.builder()
