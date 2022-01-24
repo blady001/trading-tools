@@ -2,6 +2,7 @@ package com.dbrz.trading.exchange;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.*;
@@ -17,6 +18,7 @@ class TickEventPublisher {
     private final List<ExchangeAdapter> exchangeAdapters;
     private final Clock clock;
 
+    @Scheduled(cron = "${exchange.event.cron}")
     void process() {
         var currentTime = ZonedDateTime.now(clock).truncatedTo(ChronoUnit.MINUTES);
         exchangeAdapters.forEach(exchangeAdapter -> {

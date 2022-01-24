@@ -59,13 +59,8 @@ class BinanceAdapter implements ExchangeAdapter {
 
     @Override
     public boolean isTradingOpened() {
-        try {
-            binanceApiRestClient.ping();
-            return true;
-        } catch (Throwable t) {
-            log.error("BinanceApiRestClient - error while pinging: ", t);
-            return false;
-        }
+        // TODO: add param representing time to check againts
+        return true;
     }
 
     @Override
