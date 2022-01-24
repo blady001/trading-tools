@@ -19,7 +19,7 @@ class TickEventPublisher {
     private final Clock clock;
 
     @Scheduled(cron = "${exchange.event.cron}")
-    void process() {
+    void generateEvents() {
         var currentTime = ZonedDateTime.now(clock).truncatedTo(ChronoUnit.MINUTES);
         exchangeAdapters.forEach(exchangeAdapter -> {
             if (exchangeAdapter.isTradingOpened())

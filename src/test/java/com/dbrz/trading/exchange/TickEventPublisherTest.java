@@ -50,7 +50,7 @@ class TickEventPublisherTest {
         givenTradingOpened(false);
 
         // when
-        publisher.process();
+        publisher.generateEvents();
 
         // then
         verify(applicationEventPublisher, never()).publishEvent(any());
@@ -64,7 +64,7 @@ class TickEventPublisherTest {
         givenPublisherWithTime(givenTime);
 
         // when
-        publisher.process();
+        publisher.generateEvents();
 
         // then
         var expectedEventTimestamp = givenTime.truncatedTo(ChronoUnit.MINUTES).toInstant();
