@@ -1,5 +1,6 @@
 package com.dbrz.trading.alert;
 
+import com.dbrz.trading.exchange.Exchange;
 import com.dbrz.trading.exchange.Timeframe;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class Alert {
     private String symbol;
 
     @Column(nullable = false)
-    private String exchange;
+    private Exchange exchange;
 
     @Column(nullable = false)
     private Timeframe timeframe;

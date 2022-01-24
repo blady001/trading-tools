@@ -1,5 +1,6 @@
 package com.dbrz.trading.alert;
 
+import com.dbrz.trading.exchange.Exchange;
 import com.dbrz.trading.exchange.Timeframe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestComponent;
@@ -14,14 +15,14 @@ public class AlertHelper {
     @Autowired
     private AlertRepository repository;
 
-    private final String defaultExchange = "BINANCE";
+    private final Exchange defaultExchange = Exchange.BINANCE;
     private final String defaultSymbol = "BTCUSDT";
     private final String defaultTrigger = "heikinAshiEntryCondition";
     private final int defaultNotificationMethod = 1;
     private final Timeframe defaultTimeframe = Timeframe.DAY;
     private final boolean defaultIsActive = true;
 
-    private String givenExchange = defaultExchange;
+    private Exchange givenExchange = defaultExchange;
     private String givenSymbol = defaultSymbol;
     private String givenTrigger = defaultTrigger;
     private int givenNotificationMethod = defaultNotificationMethod;
@@ -68,7 +69,7 @@ public class AlertHelper {
         givenTrigger = defaultTrigger;
     }
 
-    public AlertHelper withExchange(String value) {
+    public AlertHelper withExchange(Exchange value) {
         givenExchange = value;
         return this;
     }
