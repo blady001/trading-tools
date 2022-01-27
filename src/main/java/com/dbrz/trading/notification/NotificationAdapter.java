@@ -1,6 +1,6 @@
 package com.dbrz.trading.notification;
 
-public interface NotificationAdapter {
+interface NotificationAdapter {
 
-    SendingStatus send(Notification notification);
+    void send(Notification notification) throws NotificationSendingException;
 }

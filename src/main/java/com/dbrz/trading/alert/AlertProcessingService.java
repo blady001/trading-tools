@@ -2,8 +2,7 @@ package com.dbrz.trading.alert;
 
 import com.dbrz.trading.exchange.TickEvent;
 import com.dbrz.trading.notification.Notification;
-import com.dbrz.trading.notification.NotificationAdapter;
-import com.dbrz.trading.notification.SendingStatus;
+import com.dbrz.trading.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -17,7 +16,7 @@ import java.util.List;
 class AlertProcessingService {
 
     private final AlertRepository alertRepository;
-    private final NotificationAdapter notificationAdapter;
+    private final NotificationService notificationService;
 
     @EventListener
     void process(TickEvent event) {
@@ -38,10 +37,8 @@ class AlertProcessingService {
     }
 
     private void trigger(Alert alert) {
-        var result = notificationAdapter.send(createNotificationFrom(alert));
-        if (result != SendingStatus.SUCCESS) {
-            log.warn("Unable to send notification for alert: {}", alert);
-        }
+        var notification = createNotificationFrom(alert);
+        notificationService.send(notification);
     }
 
     private Notification createNotificationFrom(Alert alert) {

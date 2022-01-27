@@ -4,7 +4,7 @@ import com.dbrz.trading.exchange.ExchangeAdapter;
 import com.dbrz.trading.exchange.TickEvent;
 import com.dbrz.trading.exchange.Timeframe;
 import com.dbrz.trading.notification.Notification;
-import com.dbrz.trading.notification.NotificationAdapter;
+import com.dbrz.trading.notification.NotificationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@ class AlertProcessingServiceTest {
     private AlertRepository alertRepository;
 
     @Mock
-    private NotificationAdapter notificationAdapter;
+    private NotificationService notificationService;
 
     @InjectMocks
     private AlertProcessingService alertProcessingService;
@@ -85,10 +85,10 @@ class AlertProcessingServiceTest {
     }
 
     private void thenNoNotificationsWereSent() {
-        verify(notificationAdapter, never()).send(any());
+        verify(notificationService, never()).send(any());
     }
 
     private void thenNotificationSent(Notification expectedNotification) {
-        verify(notificationAdapter, times(1)).send(expectedNotification);
+        verify(notificationService, times(1)).send(expectedNotification);
     }
 }
