@@ -15,7 +15,7 @@ public class NotificationService {
         try {
             notificationAdapter.send(notification);
         } catch (NotificationSendingException e) {
-            log.error("Failed to send notification: {}", notification);
+            log.error("Failed to send notification: {}, error: {}", notification, e);
         }
     }
 }
