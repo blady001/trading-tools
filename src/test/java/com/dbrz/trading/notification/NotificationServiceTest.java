@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import static org.mockito.Mockito.*;
 
@@ -18,27 +20,32 @@ class NotificationServiceTest {
     private NotificationService notificationService;
 
     @Test
-    void shouldCallNotificationAdapter() throws NotificationSendingException {
+    void shouldCallNotificationAdapter() {
         // given
         var notification = new Notification("title", "message");
+        when(notificationAdapter.send(any())).thenReturn(Mono.empty());
 
         // when
-        notificationService.send(notification);
+        var result = notificationService.send(notification);
 
         // then
+        StepVerifier.create(result)
+                .verifyComplete();
         verify(notificationAdapter, times(1)).send(notification);
     }
 
     @Test
-    void shouldHandleAdapterException() throws NotificationSendingException {
+    void shouldHandleAdapterException() {
         // given
         var notification = new Notification("title", "message");
-        doThrow(new NotificationSendingException()).when(notificationAdapter).send(any());
+        when(notificationAdapter.send(any())).thenReturn(Mono.error(new IllegalStateException()));
 
         // when
-        notificationService.send(notification);
+        var result = notificationService.send(notification);
 
         // then
+        StepVerifier.create(result)
+                        .verifyComplete();
         verify(notificationAdapter, times(1)).send(notification);
     }
 }

@@ -1,6 +1,8 @@
 package com.dbrz.trading.notification;
 
+import reactor.core.publisher.Mono;
+
 interface NotificationAdapter {
 
-    void send(Notification notification) throws NotificationSendingException;
+    Mono<Void> send(Notification notification);
 }

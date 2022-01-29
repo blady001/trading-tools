@@ -38,7 +38,7 @@ class AlertProcessingService {
 
     private void trigger(Alert alert) {
         var notification = createNotificationFrom(alert);
-        notificationService.send(notification);
+        notificationService.send(notification).block();
     }
 
     private Notification createNotificationFrom(Alert alert) {
