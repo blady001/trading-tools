@@ -23,6 +23,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <wiremock.version>2.27.2</wiremock.version>
+        <netty-resolver-dns-native-macos.version>4.1.72.Final</netty-resolver-dns-native-macos.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,11 @@
         </dependency>
 
         <!-- LIBS -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty-resolver-dns-native-macos.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
