@@ -18,9 +18,9 @@ class PushoverAdapter implements NotificationAdapter {
     private static final String USER_PARAM = "user";
     private static final String MESSAGE_PARAM = "message";
 
-    public PushoverAdapter(NotificationProperties notificationProperties, WebClient.Builder webClientBuilder) {
+    public PushoverAdapter(NotificationProperties notificationProperties) {
         this.pushoverProperties = notificationProperties.getPushoverProperties();
-        this.webClient = webClientBuilder.baseUrl(pushoverProperties.getApiUrl()).build();
+        this.webClient = WebClient.create(pushoverProperties.getApiUrl());
     }
 
     @Override
