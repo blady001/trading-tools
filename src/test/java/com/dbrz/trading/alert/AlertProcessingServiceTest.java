@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 import java.util.Collections;
@@ -42,7 +41,6 @@ class AlertProcessingServiceTest {
     void init() {
         alertHelper = new AlertHelper(alertRepository);
         lenient().when(alertRepository.saveAndFlush(any())).thenAnswer(returnsFirstArg());
-        lenient().when(notificationService.send(any())).thenReturn(Mono.empty());
     }
 
     @Test

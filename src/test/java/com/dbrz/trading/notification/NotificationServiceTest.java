@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import static org.mockito.Mockito.*;
 
@@ -26,11 +25,9 @@ class NotificationServiceTest {
         when(notificationAdapter.send(any())).thenReturn(Mono.empty());
 
         // when
-        var result = notificationService.send(notification);
+        notificationService.send(notification);
 
         // then
-        StepVerifier.create(result)
-                .verifyComplete();
         verify(notificationAdapter, times(1)).send(notification);
     }
 
@@ -41,11 +38,9 @@ class NotificationServiceTest {
         when(notificationAdapter.send(any())).thenReturn(Mono.error(new IllegalStateException()));
 
         // when
-        var result = notificationService.send(notification);
+        notificationService.send(notification);
 
         // then
-        StepVerifier.create(result)
-                        .verifyComplete();
         verify(notificationAdapter, times(1)).send(notification);
     }
 }
