@@ -12,7 +12,7 @@ public class NotificationService {
 
     private final NotificationAdapter notificationAdapter;
 
-    public NotificationService(@Qualifier("consoleAdapter") NotificationAdapter notificationAdapter) {
+    public NotificationService(@Qualifier("pushoverAdapter") NotificationAdapter notificationAdapter) {
         this.notificationAdapter = notificationAdapter;
     }
 
