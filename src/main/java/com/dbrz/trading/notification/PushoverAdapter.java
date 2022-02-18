@@ -7,6 +7,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Component
 @Qualifier("pushoverAdapter")
 class PushoverAdapter implements NotificationAdapter {
@@ -29,10 +32,14 @@ class PushoverAdapter implements NotificationAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .queryParam(TOKEN_PARAM, pushoverProperties.getApiKey())
                         .queryParam(USER_PARAM, pushoverProperties.getUserKey())
-                        .queryParam(MESSAGE_PARAM, notification.message())
+                        .queryParam(MESSAGE_PARAM, encode(notification.message()))
                         .build())
                 .exchangeToMono(this::handleResponse)
                 .then();
+    }
+
+    private String encode(String message) {
+        return URLEncoder.encode(message, StandardCharsets.UTF_8);
     }
 
     private Mono<PushoverResponse> handleResponse(ClientResponse response) {

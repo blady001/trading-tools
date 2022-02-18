@@ -8,6 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.test.StepVerifier;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import static org.mockito.Mockito.when;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -49,7 +52,7 @@ class PushoverAdapterTest {
     @Test
     void shouldSendRequestToPushoverAndHandleSuccessfulResponse() {
         // given
-        var givenMessage = "Message";
+        var givenMessage = "Test Message";
         var givenNotification = new Notification("Title", givenMessage);
         givenSuccessfulPushoverResponse();
 
@@ -64,7 +67,7 @@ class PushoverAdapterTest {
     @Test
     void shouldReturnException() {
         // given
-        var givenMessage = "Message";
+        var givenMessage = "Test Message";
         var givenNotification = new Notification("Title", givenMessage);
         givenUnsuccessfulPushoverResponse();
 
@@ -93,7 +96,8 @@ class PushoverAdapterTest {
     }
 
     private void verifyPushoverCalled(String message) {
-        var expectedPath = String.format("/?token=%s&user=%s&message=%s", API_KEY, USER_KEY, message);
+        var expectedPath = String.format("/?token=%s&user=%s&message=%s", API_KEY, USER_KEY,
+                URLEncoder.encode(message, StandardCharsets.UTF_8));
         wireMockServer.verify(postRequestedFor(urlEqualTo(expectedPath)));
     }
 }
