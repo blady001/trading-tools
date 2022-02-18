@@ -1,5 +1,7 @@
-package com.dbrz.trading.exchange;
+package com.dbrz.trading.exchange.event;
 
+import com.dbrz.trading.exchange.ExchangeAdapter;
+import com.dbrz.trading.exchange.Timeframe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

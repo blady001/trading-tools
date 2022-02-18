@@ -1,6 +1,6 @@
 package com.dbrz.trading.alert;
 
-import com.dbrz.trading.exchange.TickEvent;
+import com.dbrz.trading.exchange.event.TickEvent;
 import com.dbrz.trading.notification.Notification;
 import com.dbrz.trading.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ class AlertProcessingService {
 
     private List<Alert> getAlertsForEvent(TickEvent event) {
         // TODO: use some cache here
-        return alertRepository.findByExchangeAndTimeframeAndIsActiveTrue(event.exchangeAdapter().getType(), event.timeframe());
+        return alertRepository.findByExchangeAndTimeframeAndIsActiveTrue(event.exchange(), event.timeframe());
     }
 
     private boolean isAlertConditionSatisfied(Alert alert, TickEvent tickEvent) {

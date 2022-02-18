@@ -1,7 +1,8 @@
 package com.dbrz.trading.alert;
 
+import com.dbrz.trading.exchange.Exchange;
 import com.dbrz.trading.exchange.ExchangeAdapter;
-import com.dbrz.trading.exchange.TickEvent;
+import com.dbrz.trading.exchange.event.TickEvent;
 import com.dbrz.trading.exchange.Timeframe;
 import com.dbrz.trading.notification.Notification;
 import com.dbrz.trading.notification.NotificationService;
@@ -22,9 +23,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AlertProcessingServiceTest {
-
-    @Mock
-    private ExchangeAdapter exchangeAdapter;
 
     @Mock
     private AlertRepository alertRepository;
@@ -75,7 +73,7 @@ class AlertProcessingServiceTest {
     }
 
     private TickEvent givenEvent() {
-        return new TickEvent(exchangeAdapter, Timeframe.HOUR, Instant.now());
+        return new TickEvent(Exchange.BINANCE, Timeframe.HOUR, Instant.now());
     }
 
     private Notification givenExpectedNotificationFrom(Alert alert) {

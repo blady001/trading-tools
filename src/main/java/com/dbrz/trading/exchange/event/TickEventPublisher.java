@@ -1,5 +1,7 @@
-package com.dbrz.trading.exchange;
+package com.dbrz.trading.exchange.event;
 
+import com.dbrz.trading.exchange.ExchangeAdapter;
+import com.dbrz.trading.exchange.Timeframe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,7 +32,7 @@ class TickEventPublisher {
     private void generateEvents(ExchangeAdapter exchangeAdapter, ZonedDateTime currentTime) {
         Stream.of(Timeframe.values())
                 .filter(timeframe -> shouldGenerateTickEventFor(timeframe, currentTime, exchangeAdapter))
-                .map(timeframe -> new TickEvent(exchangeAdapter, timeframe, currentTime.toInstant()))
+                .map(timeframe -> new TickEvent(exchangeAdapter.getType(), timeframe, currentTime.toInstant()))
                 .forEach(applicationEventPublisher::publishEvent);
     }
 
