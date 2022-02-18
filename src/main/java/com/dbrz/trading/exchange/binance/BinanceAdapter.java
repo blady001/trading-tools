@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +76,7 @@ class BinanceAdapter implements ExchangeAdapter {
 
     @Override
     public ZoneId getExchangeZoneId() {
-        return ZoneId.of("UTC");
+        return ZoneOffset.UTC;
     }
 
     private List<Candlestick> convertCandlesticks(List<com.binance.api.client.domain.market.Candlestick> binanceCandlesticks) {

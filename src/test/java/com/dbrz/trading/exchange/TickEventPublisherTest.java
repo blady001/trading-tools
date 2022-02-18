@@ -72,7 +72,7 @@ class TickEventPublisherTest {
     }
 
     private void givenPublisherWithTime(OffsetDateTime time) {
-        var clock = Clock.fixed(time.toInstant(), ZoneId.of("UTC"));
+        var clock = Clock.fixed(time.toInstant(), ZoneOffset.UTC);
         publisher = new TickEventPublisher(applicationEventPublisher, Collections.singletonList(exchangeAdapter), clock);
     }
 
@@ -80,7 +80,7 @@ class TickEventPublisherTest {
         givenTradingOpened(true);
         givenExchangeOpenTime(LocalTime.of(0, 0));
         givenExchangeCloseTime(LocalTime.of(0, 0));
-        givenExchangeZoneId(ZoneId.of("UTC"));
+        givenExchangeZoneId(ZoneOffset.UTC);
     }
 
     private void givenTradingOpened(boolean value) {
