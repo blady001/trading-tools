@@ -8,6 +8,7 @@ import com.dbrz.trading.exchange.ExchangeAdapter;
 import com.dbrz.trading.exchange.Timeframe;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,7 +20,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("binanceAdapter")
+@Service
+@Qualifier("binanceAdapter")
 @RequiredArgsConstructor
 @Slf4j
 class BinanceAdapter implements ExchangeAdapter {

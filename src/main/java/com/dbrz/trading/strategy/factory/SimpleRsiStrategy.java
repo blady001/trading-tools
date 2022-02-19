@@ -1,4 +1,4 @@
-package com.dbrz.trading.strategy;
+package com.dbrz.trading.strategy.factory;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
