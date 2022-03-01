@@ -18,9 +18,9 @@ import java.util.List;
 @Slf4j
 class StrategyRunner {
 
-    private static final int BAR_SERIES_LENGTH = 100;
-    private static final String SYMBOL = "BTCUSDT";
-    private static final Timeframe TIMEFRAME = Timeframe.FIVE_MINUTES;
+    static final int BAR_SERIES_LENGTH = 100;
+    static final String SYMBOL = "BTCUSDT";
+    static final Timeframe TIMEFRAME = Timeframe.FIVE_MINUTES;
 
     private final Strategy strategy;
     private final NotificationService notificationService;
