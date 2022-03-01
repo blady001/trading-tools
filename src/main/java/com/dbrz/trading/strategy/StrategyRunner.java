@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.ta4j.core.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -20,7 +21,7 @@ class StrategyRunner {
 
     static final int BAR_SERIES_LENGTH = 100;
     static final String SYMBOL = "BTCUSDT";
-    static final Timeframe TIMEFRAME = Timeframe.FIVE_MINUTES;
+    static final Timeframe TIMEFRAME = Timeframe.ONE_MINUTE;
 
     private final Strategy strategy;
     private final NotificationService notificationService;
@@ -50,13 +51,13 @@ class StrategyRunner {
     private List<Bar> getLatestBars(int limit) {
         return exchangeAdapter.getCandlesticks(SYMBOL, TIMEFRAME, limit).stream()
                 .map(candlestickMapper::candlestickToBar)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @EventListener
     synchronized void process(TickEvent tickEvent) {
         if (shouldRunStrategy(tickEvent)) {
-            log.debug("running");
+            log.debug("Running");
             runStrategy();
         }
     }

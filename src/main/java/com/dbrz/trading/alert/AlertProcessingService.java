@@ -5,7 +5,6 @@ import com.dbrz.trading.notification.Notification;
 import com.dbrz.trading.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ class AlertProcessingService {
     private final AlertRepository alertRepository;
     private final NotificationService notificationService;
 
-    @EventListener
+//    @EventListener
     void process(TickEvent event) {
         log.info("Event received: {}", event);
         getAlertsForEvent(event).stream()

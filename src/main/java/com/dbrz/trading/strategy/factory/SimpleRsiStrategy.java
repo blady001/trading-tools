@@ -8,7 +8,7 @@ import org.ta4j.core.Rule;
 import org.ta4j.core.Strategy;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.num.DoubleNum;
+import org.ta4j.core.num.DecimalNum;
 import org.ta4j.core.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.rules.CrossedUpIndicatorRule;
 
@@ -28,8 +28,8 @@ class SimpleRsiStrategy implements StrategyFactory {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(barSeries);
         RSIIndicator rsiIndicator = new RSIIndicator(closePrice, RSI_LENGTH);
 
-        Rule entryRule = new CrossedDownIndicatorRule(rsiIndicator, DoubleNum.valueOf(30));
-        Rule exitRule = new CrossedUpIndicatorRule(rsiIndicator, DoubleNum.valueOf(70));
+        Rule entryRule = new CrossedDownIndicatorRule(rsiIndicator, DecimalNum.valueOf(40));
+        Rule exitRule = new CrossedUpIndicatorRule(rsiIndicator, DecimalNum.valueOf(60));
 
         return new BaseStrategy(entryRule, exitRule);
     }
