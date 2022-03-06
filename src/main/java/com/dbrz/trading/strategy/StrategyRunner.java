@@ -10,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.ta4j.core.*;
+import org.ta4j.core.Bar;
+import org.ta4j.core.BarSeries;
+import org.ta4j.core.BaseBarSeriesBuilder;
+import org.ta4j.core.Strategy;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +43,14 @@ class StrategyRunner {
         this.strategy = strategyFactory.build(this.barSeries);
     }
 
+    @EventListener
+    synchronized void process(TickEvent tickEvent) {
+        if (shouldRunStrategy(tickEvent)) {
+            log.debug("Running");
+            runStrategy();
+        }
+    }
+
     private BarSeries initBarSeries() {
         return new BaseBarSeriesBuilder()
                 .withName(SYMBOL)
@@ -52,14 +63,6 @@ class StrategyRunner {
         return exchangeAdapter.getCandlesticks(SYMBOL, TIMEFRAME, limit).stream()
                 .map(candlestickMapper::candlestickToBar)
                 .collect(Collectors.toList());
-    }
-
-    @EventListener
-    synchronized void process(TickEvent tickEvent) {
-        if (shouldRunStrategy(tickEvent)) {
-            log.debug("Running");
-            runStrategy();
-        }
     }
 
     private boolean shouldRunStrategy(TickEvent tickEvent) {

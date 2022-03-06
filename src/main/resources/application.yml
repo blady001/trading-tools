@@ -1,18 +1,8 @@
-spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate.ddl-auto: validate
-
 exchange:
   event.cron: 1 * * * * ?
   binance:
-    api-key: test
-    secret: test
+    api-key: ${BINANCE_API_KEY}
+    secret: ${BINANCE_SECRET}
 
 notification:
   pushover-properties:

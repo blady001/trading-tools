@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 class BinanceConfig {
 
     @Bean
-    BinanceApiRestClient binanceApiRestClient() {
-        return binanceApiClientFactory().newRestClient();
+    BinanceApiClientFactory binanceApiClientFactory() {
+        return BinanceApiClientFactory.newInstance();
     }
 
     @Bean
-    BinanceApiClientFactory binanceApiClientFactory() {
-        return BinanceApiClientFactory.newInstance();
+    BinanceApiRestClient binanceApiRestClient(BinanceApiClientFactory binanceApiClientFactory) {
+        return binanceApiClientFactory.newRestClient();
     }
 }
