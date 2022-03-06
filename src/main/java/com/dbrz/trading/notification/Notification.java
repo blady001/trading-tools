@@ -1,5 +1,6 @@
 package com.dbrz.trading.notification;
 
-// TODO: Add validation
-public record Notification(String title, String message) {
+import javax.validation.constraints.NotBlank;
+
+public record Notification(@NotBlank String title, @NotBlank String message) {
 }
